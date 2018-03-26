@@ -40,26 +40,49 @@ describe('Spotify Wrapper', () => {
   });
 
   describe('generic search', () => {
-    it('should call fetch function', () => {
-      const fetchedStub = sinon.stub(global, 'fetch');
-      const artists = search();
 
-      expect(fetchedStub).to.be.calledOnce;
+    let fetchedStub;
+    let promise;
 
+    beforeEach( () => {
+      fetchedStub = sinon.stub(global, 'fetch');
+      promise = fetchedStub.returnsPromise();
+    });
+
+    afterEach( () => {
       fetchedStub.restore();
     });
 
-    it('should receive the correct url to fetch', () => {
-      const fetchedStub = sinon.stub(global, 'fetch');
+    it('should call fetch function', () => {
 
-      const artists = search('Incubus', 'artist');
+      let artists = search();
+      expect(fetchedStub).to.be.calledOnce;
+    });
 
-      expect(fetchedStub).to.have.been
-        .calledWith('https://api.spotify.com/v1/search?q=Incubus&type=artist');
+    it('should call fetch with the correct URL', () => {
 
-      const albuns = search('Incubus', 'album');
-      expect(fetchedStub).to.have.been
-        .calledWith('https://api.spotify.com/v1/search?q=Incubus&type=album');
+      context('passing one type', () => {
+        let artists = search('Incubus', 'artist');
+        expect(fetchedStub).to.have.been
+          .calledWith('https://api.spotify.com/v1/search?q=Incubus&type=artist');
+
+        let albuns = search('Incubus', 'album');
+        expect(fetchedStub).to.have.been
+          .calledWith('https://api.spotify.com/v1/search?q=Incubus&type=album');
+      });
+
+      context('passing more than one type', () => {
+        const artistAndAlbuns = search('Incubus', ['artist', 'album']);
+        expect(fetchedStub).to.have.been
+          .calledWith('https://api.spotify.com/v1/search?q=Incubus&type=artist,album');
+      });
+    });
+
+    it('should return JSON data from the promise', () => {
+      promise.resolves({ body: 'json' });
+      const artist = search('Incubus', 'artist');
+
+      expect(artist.resolveValue).to.be.eql({ body: 'json' });
     });
   });
 });
