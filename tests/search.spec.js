@@ -3,7 +3,8 @@ import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import sinonStubPromisse from 'sinon-stub-promise';
 
-import { search, searchAlbums, searchArtists, searchTracks, searchPlaylists } from '../src/main';
+import { API_URL } from '../src/config';
+import { search, searchAlbums, searchArtists, searchTracks, searchPlaylists } from '../src/search';
 
 global.fetch = require('node-fetch');
 
@@ -65,17 +66,17 @@ describe('Spotify Wrapper', () => {
       context('passing one type', () => {
         let artists = search('Incubus', 'artist');
         expect(fetchedStub).to.have.been
-          .calledWith('https://api.spotify.com/v1/search?q=Incubus&type=artist');
+          .calledWith(`${API_URL}/search?q=Incubus&type=artist`);
 
         let albuns = search('Incubus', 'album');
         expect(fetchedStub).to.have.been
-          .calledWith('https://api.spotify.com/v1/search?q=Incubus&type=album');
+          .calledWith(`${API_URL}/search?q=Incubus&type=album`);
       });
 
       context('passing more than one type', () => {
         const artistAndAlbuns = search('Incubus', ['artist', 'album']);
         expect(fetchedStub).to.have.been
-          .calledWith('https://api.spotify.com/v1/search?q=Incubus&type=artist,album');
+          .calledWith(`${API_URL}/search?q=Incubus&type=artist,album`);
       });
     });
 
@@ -99,17 +100,17 @@ describe('Spotify Wrapper', () => {
       context('passing one artist', () => {
         let artist = searchArtists('Incubus');
         expect(fetchedStub).to.have.been
-          .calledWith('https://api.spotify.com/v1/search?q=Incubus&type=artist');
+          .calledWith(`${API_URL}/search?q=Incubus&type=artist`);
 
         let artist2 = searchArtists('Muse');
         expect(fetchedStub).to.have.been
-          .calledWith('https://api.spotify.com/v1/search?q=Muse&type=artist');
+          .calledWith(`${API_URL}/search?q=Muse&type=artist`);
       });
 
       context('passing more than one type', () => {
         let artists = searchArtists(['Incubus', 'Muse']);
         expect(fetchedStub).to.have.been
-          .calledWith('https://api.spotify.com/v1/search?q=Incubus,Muse&type=artist');
+          .calledWith(`${API_URL}/search?q=Incubus,Muse&type=artist`);
       });
     });
   });
@@ -126,17 +127,17 @@ describe('Spotify Wrapper', () => {
       context('passing one album', () => {
         let album = searchAlbums('Incubus');
         expect(fetchedStub).to.have.been
-          .calledWith('https://api.spotify.com/v1/search?q=Incubus&type=album');
+          .calledWith(`${API_URL}/search?q=Incubus&type=album`);
 
         let album2 = searchAlbums('Muse');
         expect(fetchedStub).to.have.been
-          .calledWith('https://api.spotify.com/v1/search?q=Muse&type=album');
+          .calledWith(`${API_URL}/search?q=Muse&type=album`);
       });
 
       context('passing more than one type', () => {
         let albums = searchAlbums(['Incubus', 'Muse']);
         expect(fetchedStub).to.have.been
-          .calledWith('https://api.spotify.com/v1/search?q=Incubus,Muse&type=album');
+          .calledWith(`${API_URL}/search?q=Incubus,Muse&type=album`);
       });
     });
   });
@@ -153,17 +154,17 @@ describe('Spotify Wrapper', () => {
       context('passing one track', () => {
         let track = searchTracks('Incubus');
         expect(fetchedStub).to.have.been
-          .calledWith('https://api.spotify.com/v1/search?q=Incubus&type=track');
+          .calledWith(`${API_URL}/search?q=Incubus&type=track`);
 
         let track2 = searchTracks('Muse');
         expect(fetchedStub).to.have.been
-          .calledWith('https://api.spotify.com/v1/search?q=Muse&type=track');
+          .calledWith(`${API_URL}/search?q=Muse&type=track`);
       });
 
       context('passing more than one type', () => {
         let tracks = searchTracks(['Incubus', 'Muse']);
         expect(fetchedStub).to.have.been
-          .calledWith('https://api.spotify.com/v1/search?q=Incubus,Muse&type=track');
+          .calledWith(`${API_URL}/search?q=Incubus,Muse&type=track`);
       });
     });
   });
@@ -180,17 +181,17 @@ describe('Spotify Wrapper', () => {
       context('passing one playlist', () => {
         let playlist = searchPlaylists('Incubus');
         expect(fetchedStub).to.have.been
-          .calledWith('https://api.spotify.com/v1/search?q=Incubus&type=playlist');
+          .calledWith(`${API_URL}/search?q=Incubus&type=playlist`);
 
         let playlist2 = searchPlaylists('Muse');
         expect(fetchedStub).to.have.been
-          .calledWith('https://api.spotify.com/v1/search?q=Muse&type=playlist');
+          .calledWith(`${API_URL}/search?q=Muse&type=playlist`);
       });
 
       context('passing more than one type', () => {
         let playlists = searchPlaylists(['Incubus', 'Muse']);
         expect(fetchedStub).to.have.been
-          .calledWith('https://api.spotify.com/v1/search?q=Incubus,Muse&type=playlist');
+          .calledWith(`${API_URL}/search?q=Incubus,Muse&type=playlist`);
       });
     });
   });
