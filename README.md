@@ -1,6 +1,7 @@
 # Spotify Wrapper
 
 [![Build Status](https://travis-ci.org/aldo774/spotify-wrapper.svg?branch=master)](https://travis-ci.org/aldo774/spotify-wrapper)
+[![Coverage Status](https://coveralls.io/repos/github/aldo774/spotify-wrapper/badge.svg?branch=master)](https://coveralls.io/github/aldo774/spotify-wrapper?branch=master)
 
 A wrapper to work with the [Spotify Web API](https://developer.spotify.com/web-api/).
 
