@@ -6,9 +6,12 @@
     </head>
     <body>
         <script>
-            let album = spotifyWrapper.searchAlbums;
+            const spotify = new spotifyWrapper({
+                token: 'BQAvBUIhsxL1Q1AaPhHO9aiwrVB0GDV0xCjtrnjgJEqYrBG8PC1SNv6' + 
+                    '_-MfrOXoTn-nih66q9Wf0TPI6LS1dSXfknRfF4rIC6LNnELJthtOMiwPW_' + 
+                    'capG1kWAzs7Hw-BwVNZ8UuP4KI_'});
             async function getAlbumItems() {
-                const response = await album('Florence');
+                const response = await spotify.search.albums('Florence');
                 markup = response.albums.items.map(item => 
                   `<img src="${item.images[2].url}" alt="${item.name}">`).join('');
                 console.log(markup);
