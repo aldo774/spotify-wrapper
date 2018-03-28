@@ -6,13 +6,10 @@ import {
   searchTracks,
 } from './search';
 
-import {
-  getAlbum,
-  getAlbums,
-  getAlbumTracks,
-} from './album';
+import album from './album';
 
 import { API_URL } from './config'
+import { toJson } from './utils';
 
 // module.exports = {
 //   search,
@@ -26,12 +23,13 @@ import { API_URL } from './config'
 // };
 
 export default class SpotifyWrapper {
-  constructor(options){
+  constructor(options) {
     this.apiURL = options.apiURL || API_URL;
     this.token = options.token;
+    this.album = album.bind(this)();
   };
 
-  request(url, token){
+  request(url, token) {
 
     let headers = {
       headers: {
@@ -39,6 +37,6 @@ export default class SpotifyWrapper {
       },
     };
 
-    return fetch(url, headers);
-  }
+    return fetch(url, headers).then(toJson);
+  };
 };
