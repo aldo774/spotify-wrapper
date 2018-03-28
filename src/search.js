@@ -1,15 +1,12 @@
-import { API_URL, HEADERS } from './config';
-import { toJson } from './utils';
+function searcher(type, query) {
+  return this.request(`${this.apiURL}/search?q=${query}&type=${type}`)
+};
 
-global.fetch = require('node-fetch');
-
-export const search = (query, type) =>
-  global.fetch(`${API_URL}/search?q=${query}&type=${type}`, HEADERS).then(toJson);
-
-export const searchArtists = artists => search(artists, 'artist');
-
-export const searchAlbums = albums => search(albums, 'album');
-
-export const searchTracks = tracks => search(tracks, 'track');
-
-export const searchPlaylists = playlists => search(playlists, 'playlist');
+export default function search() {
+  return {
+    artists: searcher.bind(this, 'artist'),
+    albums: searcher.bind(this, 'album'),
+    tracks: searcher.bind(this, 'track'),
+    playlists: searcher.bind(this, 'playlist'),
+  };
+};
