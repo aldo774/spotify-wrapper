@@ -1,6 +1,6 @@
 function searcher(type, query) {
-  return this.request(`${this.apiURL}/search?q=${query}&type=${type}`)
-};
+  return this.request(`${this.apiURL}/search?q=${query}&type=${type}`);
+}
 
 export default function search() {
   return {
@@ -9,4 +9,4 @@ export default function search() {
     tracks: searcher.bind(this, 'track'),
     playlists: searcher.bind(this, 'playlist'),
   };
-};
+}
