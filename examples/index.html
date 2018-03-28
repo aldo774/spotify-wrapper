@@ -8,7 +8,7 @@
         <script>
             let album = spotifyWrapper.searchAlbums;
             async function getAlbumItems() {
-                const response = await album('evanescence');
+                const response = await album('Florence');
                 markup = response.albums.items.map(item => 
                   `<img src="${item.images[2].url}" alt="${item.name}">`).join('');
                 console.log(markup);
